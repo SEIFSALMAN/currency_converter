@@ -12,14 +12,14 @@ class DioHelper {
         )
     );
   }
-//https://moho.glitch.me/api/convert?from=USD&amount=25&to=EGP
-  static  getData({
-    String url='convert',
+
+
+  static Future<Response> getData({
+    required String url,
     Map<String, dynamic> ?query,
   }) async {
-    return await dio!.get(
-        url, queryParameters: query).then((value) {
-      print(value.data);
-    });
+    return await dio!.get(url, queryParameters: query);
   }
+
+
 }

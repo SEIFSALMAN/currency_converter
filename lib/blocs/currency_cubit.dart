@@ -20,6 +20,7 @@ class CurrencyCubit extends Cubit<CurrencyStates> {
   convertCurrency(String from , double amount ,String to){
     emit(CurrencyLoadingState());
     DioHelper.getData(
+        url: 'convert',
         query:
         {
           'from':from,
@@ -27,8 +28,11 @@ class CurrencyCubit extends Cubit<CurrencyStates> {
           'to': to
         }
     ).then((value) {
+      print(value.data);
+
       currencyHub = CurrencyHub.fromJson(value.data);
-      print(currencyHub?.approxResult);
+
+      print(currencyHub);
       emit(CurrencySuccessState());
 
     }).catchError((error){

@@ -1,4 +1,5 @@
 import 'package:currency_converter/blocs/currency_cubit.dart';
+import 'package:currency_converter/core/utils/custom_button.dart';
 import 'package:currency_converter/core/utils/dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class _CurrencyChangerScreenState extends State<CurrencyChangerScreen> {
 
   String? from;
   String? to;
-  String? result;
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class _CurrencyChangerScreenState extends State<CurrencyChangerScreen> {
               image: DecorationImage(
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.88), BlendMode.srcOver),
+                    Colors.black.withOpacity(0.79), BlendMode.srcOver),
                 image: AssetImage(
                   'assets/images/CurrencyChanger.jpg',
                 ),
@@ -70,10 +71,10 @@ class _CurrencyChangerScreenState extends State<CurrencyChangerScreen> {
                               Text(
                                 'From',
                                 style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 23,
-                                  fontFamily: 'Comfortaa',
-                                  fontWeight: FontWeight.bold
+                                    color: Colors.white,
+                                    fontSize: 23,
+                                    fontFamily: 'Comfortaa',
+                                    fontWeight: FontWeight.bold
                                 ),
                               ),
                               Container(
@@ -98,13 +99,14 @@ class _CurrencyChangerScreenState extends State<CurrencyChangerScreen> {
                             backgroundColor: Colors.green,
                           ),
                           Column(
+
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 'To',
                                 style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 23,
+                                    color: Colors.white,
+                                    fontSize: 23,
                                     fontFamily: 'Comfortaa',
                                     fontWeight: FontWeight.bold
                                 ),
@@ -136,33 +138,22 @@ class _CurrencyChangerScreenState extends State<CurrencyChangerScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: height * 0.07,
-                        width: width * 0.6,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            primary: Colors.green,
-                            onPrimary: Colors.white, // foreground (text) color
-                          ),
 
-                          onPressed: () {
-                            setState(() {
-                              currencyCubit.convertCurrency(
-                                  from!.toString(),
-                                  double.parse(amountController.text),
-                                  to!.toString());
-                            });
-                          },
-                          child: const Text(
-                            'Calculate!',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800, fontSize: 25),
-                          ),
-                        ),
-                      ),
+                      CustomButton(
+                        text: 'Calculate',
+                        width: width * 0.6,
+                        height: height * 0.07,
+                        buttonColor: Colors.green,
+                        textColor: Colors.white,
+                        function: () {
+                          setState(() {
+                            currencyCubit.convertCurrency(
+                                from!.toString(),
+                                double.parse(amountController.text),
+                                to!.toString());
+                          });},),
+
+
                       const SizedBox(
                         height: 100,
                       ),
@@ -182,7 +173,7 @@ class _CurrencyChangerScreenState extends State<CurrencyChangerScreen> {
                                     ? '0'
                                     : currencyCubit.currencyHub!.approxResult!.toString())),
                         height: height * 0.06,
-                        width: width * 0.5,
+                        width: width * 0.41,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.grey[100]),
